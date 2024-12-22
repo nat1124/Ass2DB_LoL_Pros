@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Danh sách người chơi</title>
+    <link href="../../styles/style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../../styles/headerStyle.css" />
+    <link rel="stylesheet" href="../../styles/playerStyle.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <%- include('partial/header') %>
+    <div class="notification" id="notification">Thêm thành công!</div>
+    <div class="search-container"> 
+      <form action="/players" id="form" method="GET" style="display: inline-flex; width: 100%;"> 
+        <input type="search" id="search-area" name="q" placeholder="Search" value="<%= query.search %>"  /> 
+        <button type="submit"><span>🔍</span></button> 
+      </form> 
+      <button type="button" id="addPlayerBtn" class="addPlayerButton" onclick="window.location.href='/players/create'">Thêm Player</button> 
+    </div>
+    <div class="players-container">
+      <h1>Danh sách người chơi</h1>
+      <form class="filter-container" action="/players" method="GET">
+        <div>
+          <label for="positionFilter">Vị trí:</label>
+          <select id="positionFilter" name="position" >
+            <option value="all">Tất cả</option>
+            <option value="TOP" <%= query.position === 'TOP' ? 'selected' : '' %>>Top</option>
+            <option value="JUNG" <%= query.position === 'JUNG' ? 'selected' : '' %>>Jungle</option>
+            <option value="MID" <%= query.position === 'MID' ? 'selected' : '' %>>Mid</option>
+            <option value="AD" <%= query.position === 'AD' ? 'selected' : '' %>>AD Carry</option>
+            <option value="SP" <%= query.position === 'SP' ? 'selected' : '' %>>Support</option>
+          </select>
+        </div>
+        <div>
+          <label for="statusFilter">Trạng thái:</label>
+          <select id="statusFilter" name="status">
+            <option value="all">Tất cả</option>
+            <option value="Tự do" <%= query.status === 'Tự do' ? 'selected' : '' %>>Tự do</option>
+            <option value="Còn hợp đồng" <%= query.status === 'Còn hợp đồng' ? 'selected' : '' %>>Còn hợp đồng</option>
+          </select>
+        </div>
+        <input type="hidden" name="q" value="<%= query.search %>">
+        <button type="submit">Lọc</button>
+      </form>
+      <table>
+        <thead>
+          <tr>
+            <th>STT</th>
+            <th >Tên người chơi</th>
+            <th>Tên ingame</th>
+            <th >Vị trí </i></th>
+            <th >Tuổi </i></th>
+            <th>Quốc gia</th>
+            <th>Team hiện tại</th>
+          </tr>
+        </thead>
+        <tbody id="playerTableBody">
+          <% players.forEach((player, index) => { %>
+            <tr>
+              <td><%= (currentPage - 1) * 10 + index + 1 %></td>
+              <td><%= player.playerFirstName %> <%= player.playerLastMiddleName %></td>
+              <td><%= player.ingameName %></td>
+              <td><%= player.role %></td>
+              <td><%= new Date().getFullYear() - new Date(player.dob).getFullYear() %></td>
+              <td><%= player.nationality %></td>
+              <td><%= player.teamName %></td>
+              
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+      <ul class="pagination">
+        <% for(let i = 1; i <= totalPages; i++) { %>
+          <li>
+            <a href="?page=<%= i %>&position=<%= query.position %>&status=<%= query.status %>&q=<%= query.search %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+
+    <script src="../../scripts/playerScript.js"></script>
+  </body

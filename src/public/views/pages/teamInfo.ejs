@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= team[0].teamName %> - Thông tin đội</title>
+    <link href="../../styles/style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../../styles/headerStyle.css" />
+    <link rel="stylesheet" href="../../styles/teamInfoStyle.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <%- include('partial/header') %>
+    <div class="team-container">
+      <div class="team-header">
+        <h1 style="color: red"><%= team[0].teamName %></h1>
+      </div>
+      <div class="team-info">
+        <div><strong>Khu vực:</strong> <%= team[0].regionName %></div>
+        <div>
+          <strong>Nhà tài trợ:</strong> <%= team_sponsors.filter(sponsor =>
+          sponsor.teamId === team[0].teamId).map(sponsor =>
+          sponsor.sponsor).join(", ") %>
+        </div>
+      </div>
+      <div class="achievements">
+        <h2>Thành tích</h2>
+        <ul>
+          <% trophys.filter(trophy => trophy.teamId ===
+          team[0].teamId).forEach(trophy => { %>
+          <li>
+            <%= trophy.trophyName %> - <%= new
+            Date(trophy.dateAwarded).toLocaleDateString() %>
+          </li>
+          <% }) %>
+        </ul>
+      </div>
+      <div class="players">
+        <h2>Danh sách người chơi</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Tên người chơi</th>
+              <th>Tên ingame</th>
+              <th>Vị trí</th>
+              <th>Tuổi</th>
+              <th>Quốc gia</th>
+              <th>Ngày bắt đầu</th>
+              <th>Ngày hết hạn</th>
+              <th>Trạng thái</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% team.forEach(player => { %>
+            <tr>
+              <td>
+                <%= player.playerFirstName %> <%= player.playerLastMiddleName %>
+              </td>
+              <td><%= player.ingameName %></td>
+              <td><%= player.role %></td>
+              <td>
+                <%= new Date().getFullYear() - new
+                Date(player.dob).getFullYear() %>
+              </td>
+              <td><%= player.nationality %></td>
+              <td><%= new Date(player.startDate).toLocaleDateString() %></td>
+              <td><%= new Date(player.endDate).toLocaleDateString() %></td>
+              <td>
+                <% const isExpired = new Date(player.endDate) < new Date(); %>
+                <button class="editButton <%= isExpired ? 'expired' : '' %>">
+                  <%= isExpired ? 'Hết hợp đồng' : 'Chỉnh sửa hợp đồng' %>
+                </button>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <div class="add-player">
+        <button>Thêm Player</button>
+      </div>
+    </div>
+  </body>
+</html>

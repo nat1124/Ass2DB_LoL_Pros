@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Team</title>
+    <link href="../../styles/style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../../styles/headerStyle.css" />
+    <link rel="stylesheet" href="../../styles/teamStyle.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <script src="../../scripts/script.js" defer></script>
+  </head>
+
+  <body>
+    <%- include('partial/header') %> <%- include('partial/searchBar') %>
+
+    <div class="teamsListContainer">
+      <div class="filter">
+        <label for="regionSelect">Khu vực:</label>
+        <select id="regionSelect" onchange="filterTeamsByRegion()">
+          <option value="all">Tất cả</option>
+          <% regions.forEach(region => { %>
+          <option value="<%= region.regionName %>">
+            <%= region.regionName %>
+          </option>
+          <% }) %>
+        </select>
+      </div>
+      <div class="teamRow">
+        <% teams.forEach(team => { %>
+        <div class="teamCard" data-region="<%= team.regionName %>">
+          <a href="/team/<%= team.teamId %>" class="team-info">
+            <h3 style="color: red"><%= team.teamName %></h3>
+            <div class="team-info-content">
+              <div>
+                <strong>Khu vực:</strong> <span><%= team.regionName %></span>
+              </div>
+              <div>
+                <strong>Nhà tài trợ:</strong>
+                <span>
+                  <%= team_sponsors .filter(sponsor => sponsor.teamId ===
+                  team.teamId) .map(sponsor => sponsor.sponsor) .join(", ") %>
+                </span>
+              </div>
+            </div>
+          </a>
+          <button
+            class="editButton"
+            onclick="editTeam(event, '<%= team.teamId %>')"
+          >
+            Chỉnh sửa
+          </button>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+
+    <script>
+      function filterTeamsByRegion() {
+        const selectedRegion = document.getElementById("regionSelect").value;
+        const teamCards = document.querySelectorAll(".teamCard");
+
+        teamCards.forEach((card) => {
+          if (
+            selectedRegion === "all" ||
+            card.getAttribute("data-region") === selectedRegion
+          ) {
+            card.style.display = "block";
+          } else {
+            card.style.display = "none";
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

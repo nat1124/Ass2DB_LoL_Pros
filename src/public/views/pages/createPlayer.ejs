@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thêm sách</title>
+    <link href="../../styles/style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../../styles/headerStyle.css" />
+    <!-- <script src="../../scripts/script.js" defer></script> -->
+    <script src="../../scripts/playerScript.js" defer></script>
+  </head>
+  <body>
+    <%- include('partial/header') %>
+
+    <!-- Add Book Form -->
+    <div class="addContainer">
+      <!-- Modal nhập thông tin -->
+      <div class="modal" id="bookModal">
+        <div class="modal-content">
+          <h2 class="addPlayer" style="font-size: 24px">
+            Nhập thông tin Player
+          </h2>
+
+          <!-- Hiển thị thông báo thành công nếu có -->
+          <% if (typeof success !== "undefined" && success) { %>
+          <div class="modal-backdrop"></div>
+          <!-- Thêm lớp phủ mờ -->
+          <div id="success-message" class="success-message">
+            <p>Thêm Player Thành công!</p>
+            <button id="ok-button" class="ok-button">OK</button>
+          </div>
+          <script>
+            document
+              .getElementById("ok-button")
+              .addEventListener("click", function () {
+                window.location.href = "/players";
+              });
+          </script>
+          <% } %>
+
+          <!-- Nút đóng modal -->
+          <form
+            method="POST"
+            class="form-content"
+            action="/players/create/store"
+          >
+            <!-- Hiển thị thông báo lỗi nếu có -->
+            <% if (typeof error !== "undefined" && error) { %>
+            <div class="alert-error"><%= error %></div>
+            <% } %>
+
+            <label class="required" for="ingamename">Tên ingame:</label>
+            <input
+              type="text"
+              name="ingameName"
+              id="ingamename"
+              placeholder="Nhập tên ingame"
+              value="<%= typeof values !== 'undefined' ? values.ingameName : '' %>"
+              required
+            />
+
+            <label class="required" for="playerFirstName">Tên</label>
+            <input
+              type="text"
+              name="playerFirstName"
+              id="playerFirstName"
+              placeholder="Nhập tên"
+              value="<%= typeof values !== 'undefined' ? values.playerFirstName : '' %>"
+            />
+
+            <label class="required" for="playerLastMiddleName">Mô tả:</label>
+            <input
+              id="playerLastMiddleName"
+              name="playerLastMiddleName"
+              type="text"
+              placeholder="Nhập họ, tên đệm"
+              value="<%= typeof values !== 'undefined' ? values.playerLastMiddleName : '' %>"
+            />
+
+            <label class="required" for="dob">Ngày sinh:</label>
+            <input
+              type="date"
+              id="dob"
+              name="dob"
+              placeholder="Nhập ngày sinh"
+              value="<%= typeof values !== 'undefined' ? values.dob : '' %>"
+            />
+            <label class="required" for="nationality">Quốc gia:</label>
+            <input
+              type="text"
+              id="nationality"
+              name="nationality"
+              placeholder="Nhập quốc gia"
+              value="<%= typeof values !== 'undefined' ? values.nationality : '' %>"
+              required
+            />
+            <label class="required" for="role">Vị trí:</label>
+            <select id="role" name="role" required>
+              <option value="TOP">Top</option>
+              <option value="JUNG">Jungle</option>
+              <option value="MID">Mid</option>
+              <option value="AD">AD Carry</option>
+              <option value="SP">Support</option>
+            </select>
+
+            <div class="button-group">
+              <button type="submit" class="add-btn">Thêm</button>
+              <button
+                type="button"
+                class="close-btn-modal"
+                onclick="closeModal()"
+              >
+                Đóng
+              </button>
+            </div>
+
+            <div
+              id="error-message"
+              style="display: none; color: red; font-weight: bold"
+            ></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

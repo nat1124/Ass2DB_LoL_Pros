@@ -1,0 +1,349 @@
+.players-container {
+  margin-top: 180px; /* Tạo khoảng cách dưới header */
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filter-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.filter-container select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.filter-container select:hover {
+  border-color: #007bff;
+}
+
+.filter-container button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.filter-container button:hover {
+  background-color: #0056b3;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #f0f0f0;
+}
+
+th.sortable {
+  cursor: pointer;
+}
+
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+  padding: 0;
+}
+
+.pagination li {
+  margin: 0 5px;
+}
+
+.pagination a {
+  text-decoration: none;
+  color: #007bff;
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.pagination a:hover {
+  background-color: #f0f0f0;
+}
+
+.pagination .active {
+  background-color: #007bff;
+  color: white;
+  cursor: default;
+}
+
+.editButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-size: 0.9em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.editButton:hover {
+  background-color: #0056b3;
+}
+
+.editButton:active {
+  background-color: #00408f;
+}
+
+.expired {
+  background-color: #ff4d4d;
+}
+
+/*  */
+.modal {
+  display: none; /* Ẩn hộp thoại mặc định */
+  position: fixed; /* Cố định hộp thoại */
+  z-index: 1; /* Hiển thị phía trên */
+  left: 0;
+  top: 0;
+  width: 100%; /* Chiếm toàn bộ màn hình */
+  height: 100%; /* Chiếm toàn bộ màn hình */
+  overflow: auto; /* Cho phép cuộn nếu nội dung quá dài */
+  background-color: rgba(0, 0, 0, 0.4); /* Màu nền với độ mờ */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* Canh giữa màn hình */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Chiều rộng của hộp thoại */
+  max-width: 500px; /* Giới hạn chiều rộng tối đa */
+  border-radius: 10px; /* Bo góc */
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.addPlayerButton {
+  margin-left: 10px;
+  padding: 8px 16px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.addPlayerButton:hover {
+  background-color: #218838;
+}
+
+.addPlayerButton:active {
+  background-color: #1e7e34;
+}
+
+/*  */
+.modal {
+  display: none; /* Ẩn hộp thoại mặc định */
+  position: fixed; /* Cố định hộp thoại */
+  z-index: 1; /* Hiển thị phía trên */
+  left: 0;
+  top: 0;
+  width: 100%; /* Chiếm toàn bộ màn hình */
+  height: 100%; /* Chiếm toàn bộ màn hình */
+  overflow: auto; /* Cho phép cuộn nếu nội dung quá dài */
+  background-color: rgba(0, 0, 0, 0.4); /* Màu nền với độ mờ */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* Canh giữa màn hình */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Chiều rộng của hộp thoại */
+  max-width: 500px; /* Giới hạn chiều rộng tối đa */
+  border-radius: 10px; /* Bo góc */
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.addPlayerButton {
+  margin-left: 10px;
+  padding: 8px 16px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.addPlayerButton:hover {
+  background-color: #218838;
+}
+
+.addPlayerButton:active {
+  background-color: #1e7e34;
+}
+
+#playerForm {
+  display: flex;
+  flex-direction: column;
+}
+
+#playerForm label {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+#playerForm input[type="text"],
+#playerForm input[type="date"],
+#playerForm select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#playerForm button {
+  margin-top: 10px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#playerForm #createPlayerBtn {
+  background-color: #007bff;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+#playerForm #createPlayerBtn:hover {
+  background-color: #0056b3;
+}
+
+#playerForm #createPlayerBtn:active {
+  background-color: #00408f;
+}
+
+#playerForm #cancelPlayerBtn {
+  background-color: #dc3545;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+#playerForm #cancelPlayerBtn:hover {
+  background-color: #c82333;
+}
+
+#playerForm #cancelPlayerBtn:active {
+  background-color: #bd2130;
+}
+
+/*  */
+/* CSS cho thông báo */
+.notification {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #4caf50;
+  color: white;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  font-size: 17px;
+}
+
+.notification.show {
+  visibility: visible;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+.message-container {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: none; /* Ẩn mặc định */
+}
+
+.message-container.success {
+  background-color: #28a745;
+  color: white;
+}
+
+.message-container.error {
+  background-color: #dc3545;
+  color: white;
+}
