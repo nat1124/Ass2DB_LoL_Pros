@@ -73,7 +73,7 @@
               <td><%= new Date(player.endDate).toLocaleDateString() %></td>
               <td>
                 <% const isExpired = new Date(player.endDate) < new Date(); %>
-                <button class="editButton <%= isExpired ? 'expired' : '' %>">
+                <button class="editButton <%= isExpired ? 'expired' : '' %>" onclick="contractRenew('<%= player.playerId %>', '<%= player.teamId %>')">
                   <%= isExpired ? 'Hết hợp đồng' : 'Chỉnh sửa' %>
                 </button>
                 <% if (!isExpired) { %> <a href="/team/cancel-contract/<%= player.playerId %>/<%= player.teamId %>" class="cancelContractBtn">Hủy hợp đồng</a> <% } %>
@@ -134,6 +134,21 @@
           <input type="date" id="startDate" name="startDate" required> 
           <label for="endDate">Ngày kết thúc:</label> 
           <input type="date" id="endDate" name="endDate" required> 
+          <div class="button-group"> 
+            <button type="submit" class="add-btn">Xác nhận</button> 
+          </div>
+         </form> 
+        </div> 
+      </div> 
+    </div>
+    <div id="contractRenewModal" class="modalContract contractRenewModal" style="display: none;"> 
+      <div class="modalContract-content"> 
+        <span class="close-contract">&times;
+        </span> 
+        <h2>Gia hạn hợp đồng</h2> 
+        <form id="contractForm" method="POST" action="/team/renew-contract"> 
+          <label for="endDate">Gia hạn đến ngày:</label> 
+          <input type="date" name="endDate" class='endDate' required> 
           <div class="button-group"> 
             <button type="submit" class="add-btn">Xác nhận</button> 
           </div>

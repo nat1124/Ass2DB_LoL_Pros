@@ -94,6 +94,11 @@ const addPlayerToTeam = async (req, res) => {
   }
 };
 
+const editContract = async (req, res) => {
+  await teamService.editContract(req.body.playerId, req.body.teamId, req.body.endDate);
+  res.status(200).json();
+}
+
 const cancelContract = async (req, res) => {
   await teamService.cancelContract(req.params.playerId, req.params.teamId);
   res.redirect(`/team/${req.params.teamId}`)
@@ -105,5 +110,6 @@ module.exports = {
   addTeam,
   createTeam,
   addPlayerToTeam,
+  editContract,
   cancelContract,
 };

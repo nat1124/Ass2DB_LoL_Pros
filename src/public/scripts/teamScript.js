@@ -105,4 +105,36 @@ document.addEventListener("DOMContentLoaded", (event) => {
       })
       .catch((error) => console.error("Error adding player:", error));
   };
+
+  
 });
+
+function contractRenew (playerId, teamId) {
+  document.getElementById('contractRenewModal').style.display = "flex";
+  document.getElementById('contractRenewModal').querySelector(".close-contract").onclick = () => {
+    document.getElementById('contractRenewModal').style.display = "none";
+  }
+  document.getElementById('contractRenewModal').querySelector('form').onsubmit = (e) => {
+    e.preventDefault();
+    const endDate = document.getElementById('contractRenewModal').querySelector('.endDate').value;
+    fetch('/team/renew-contract', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        teamId: teamId, // Sử dụng giá trị teamId từ phần tử ẩn
+        playerId: playerId,
+        endDate: endDate,
+      })
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        alert(data.message);
+        document.getElementById('contractRenewModal').style.display = "none";
+        location.reload();
+      })
+      .catch((error) => console.error("Error renew contract:", error));
+    location.reload()
+  }
+}
