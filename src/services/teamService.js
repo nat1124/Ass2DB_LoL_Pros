@@ -92,6 +92,14 @@ const addPlayerToTeam = async ({ teamId, playerId, startDate, endDate }) => {
   }
 };
 
+const editContract = async (playerId, teamId, endDate) => {
+  try {
+    await db.execute('UPDATE player_team_history SET endDate = ? WHERE playerId = ? AND teamId = ?', [endDate, playerId, teamId])
+  } catch (error) {
+    throw new Error("Lỗi khi gia hạn hợp đồng.");
+  }
+}
+
 const cancelContract = async (playerId, teamId) => {
   try {
     await db.execute(
@@ -112,4 +120,5 @@ module.exports = {
   addTeam,
   addPlayerToTeam,
   cancelContract,
+  editContract,
 };
