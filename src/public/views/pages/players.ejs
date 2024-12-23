@@ -62,7 +62,7 @@
           <% players.forEach((player, index) => { %>
             <tr>
               <td><%= (currentPage - 1) * 10 + index + 1 %></td>
-              <td><%= player.playerFirstName %> <%= player.playerLastMiddleName %></td>
+              <td> <%= player.playerLastMiddleName %> <%= player.playerFirstName %></td>
               <td><%= player.ingameName %></td>
               <td><%= player.role %></td>
               <td><%= new Date().getFullYear() - new Date(player.dob).getFullYear() %></td>

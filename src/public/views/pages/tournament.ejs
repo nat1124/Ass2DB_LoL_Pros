@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Team</title>
+    <link href="../../styles/style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../../styles/headerStyle.css" />
+    <link rel="stylesheet" href="../../styles/teamStyle.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <script src="../../scripts/script.js" defer></script>
+  </head>
+
+  <body>
+    <%- include('partial/header') %>
+    <div class="teamsListContainer">
+      <h2>Hệ thống giải đấu</h2>
+      <div class="teamRow">
+        <% tournaments.forEach(tournament => { %>
+        <div class="teamCard">
+          <a
+            href="/tournament/<%= tournament.tournamentId %>"
+            class="team-info"
+          >
+            <h3 style="color: red"><%= tournament.tournamentName %></h3>
+            <div class="team-info-content">
+              <div>
+                <strong>Thời gian:</strong>
+                <span
+                  ><%= new Date(tournament.startDate).toLocaleDateString() %> -
+                  <%= new Date(tournament.endDate).toLocaleDateString() %></span
+                >
+              </div>
+              <div>
+                <strong>Địa điểm thi đấu:</strong>
+                <span>
+                  <%= locations.filter(location => tournament.tournamentId ===
+                  location.tournamentId) .map(location => location.locationCity
+                  + " - " + location.locationArena).join(", ") %>
+                </span>
+              </div>
+            </div>
+          </a>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+  </body>
+</html>

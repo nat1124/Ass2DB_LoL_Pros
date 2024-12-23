@@ -51,6 +51,7 @@ LEFT JOIN team_region ON team.teamId = team_region.teamId
 LEFT JOIN player_team_history ON team.teamId = player_team_history.teamId
 LEFT JOIN player ON player_team_history.playerId = player.playerId
 WHERE team.teamId = ?
+ORDER BY endDate DESC
 `,
       [teamId]
     );
@@ -93,11 +94,14 @@ const addPlayerToTeam = async ({ teamId, playerId, startDate, endDate }) => {
 
 const cancelContract = async (playerId, teamId) => {
   try {
-    await db.execute('UPDATE player_team_history SET endDate = current_date() WHERE playerId = ? AND teamId = ?', [playerId, teamId])
+    await db.execute(
+      "UPDATE player_team_history SET endDate = current_date() WHERE playerId = ? AND teamId = ?",
+      [playerId, teamId]
+    );
   } catch (error) {
     throw new Error("Lỗi khi huỷ hợp đồng.");
   }
-}
+};
 
 module.exports = {
   getAllTeamInfo,
