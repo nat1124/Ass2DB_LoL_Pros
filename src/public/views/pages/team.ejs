@@ -16,7 +16,26 @@
   </head>
 
   <body>
-    <%- include('partial/header') %> <%- include('partial/searchBar') %>
+    <%- include('partial/header') %>
+    <div class="search-container">
+      <form
+        action="/team"
+        id="form"
+        method="GET"
+        style="display: inline-flex; width: 100%"
+      >
+        <input type="search" id="search-area" name="q" placeholder="Search" />
+        <button type="submit"><span>🔍</span></button>
+      </form>
+      <button
+        type="button"
+        id="addPlayerBtn"
+        class="addPlayerButton"
+        onclick="window.location.href='/team/create'"
+      >
+        Thêm Team
+      </button>
+    </div>
 
     <div class="teamsListContainer">
       <div class="filter">
@@ -48,12 +67,6 @@
               </div>
             </div>
           </a>
-          <button
-            class="editButton"
-            onclick="editTeam(event, '<%= team.teamId %>')"
-          >
-            Chỉnh sửa
-          </button>
         </div>
         <% }) %>
       </div>

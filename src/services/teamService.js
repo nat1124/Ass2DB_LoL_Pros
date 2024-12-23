@@ -3,7 +3,7 @@ const db = require("../config/db");
 const getAllTeamInfo = async () => {
   try {
     const result = await db.execute(
-      "SELECT * FROM team NATURAL JOIN team_region"
+      "SELECT team.*, team_region.regionName FROM team LEFT JOIN team_region ON team.teamId = team_region.teamId"
     );
     return result[0];
   } catch (error) {
@@ -45,10 +45,13 @@ const getAllTrophy = async () => {
 const getTeamById = async (teamId) => {
   try {
     const result = await db.execute(
-      `SELECT * 
-      FROM (team NATURAL JOIN team_region)
-      LEFT JOIN (player_team_history NATURAL JOIN player) on team.teamId = player_team_history.teamId
-      WHERE team.teamId = ?`,
+      `SELECT *
+FROM team
+LEFT JOIN team_region ON team.teamId = team_region.teamId
+LEFT JOIN player_team_history ON team.teamId = player_team_history.teamId
+LEFT JOIN player ON player_team_history.playerId = player.playerId
+WHERE team.teamId = ?
+`,
       [teamId]
     );
     return result[0];
@@ -56,10 +59,44 @@ const getTeamById = async (teamId) => {
     throw error;
   }
 };
+
+const addTeam = async ({ teamName, sponsors, regionName }) => {
+  try {
+    // Kiểm tra xem danh sách sponsors có phải là một mảng không
+    if (Array.isArray(sponsors)) {
+      // Chuyển đổi mảng sponsors thành chuỗi ngăn cách bởi dấu phẩy
+      sponsors = sponsors.join(", ");
+    } else {
+      // Nếu không phải là mảng, kiểm tra và gán giá trị rỗng nếu cần
+      sponsors = sponsors || "";
+    }
+
+    const query = `CALL AddTeamWithDetails(?, ?, ?)`;
+    await db.execute(query, [teamName, sponsors, regionName]);
+  } catch (error) {
+    if (error.sqlState === "45000") {
+      throw new Error("Tên team đã tồn tại. Vui lòng chọn tên khác.");
+    } else {
+      throw error;
+    }
+  }
+};
+
+const addPlayerToTeam = async ({ teamId, playerId, startDate, endDate }) => {
+  try {
+    const query = `INSERT INTO player_team_history (playerId, teamId, startDate, endDate) VALUES (?, ?, ?, ?)`;
+    await db.execute(query, [playerId, teamId, startDate, endDate]);
+  } catch (error) {
+    throw new Error("Lỗi khi thêm người chơi vào đội.");
+  }
+};
+
 module.exports = {
   getAllTeamInfo,
   getAllTeamSponsors,
   getAllRegions,
   getTeamById,
   getAllTrophy,
+  addTeam,
+  addPlayerToTeam,
 };

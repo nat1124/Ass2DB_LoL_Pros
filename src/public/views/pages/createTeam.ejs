@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thêm Team</title>
+    <link href="../../styles/style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../../styles/headerStyle.css" />
+    <link rel="stylesheet" href="../../styles/createTeamStyle.css" />
+    <script src="../../scripts/teamScript.js" defer></script>
+  </head>
+  <body>
+    <%- include('partial/header') %>
+
+    <div class="addContainer">
+      <div class="modal" id="teamModal">
+        <div class="modal-content">
+          <h2 class="addPlayer" style="font-size: 24px">Nhập thông tin Team</h2>
+
+          <!-- Hiển thị thông báo thành công nếu có -->
+          <% if (typeof success !== "undefined" && success) { %>
+          <div class="modal-backdrop"></div>
+          <div id="success-message" class="success-message">
+            <p>Thêm Team Thành công!</p>
+            <button id="ok-button" class="ok-button">OK</button>
+          </div>
+          <script>
+            document
+              .getElementById("ok-button")
+              .addEventListener("click", function () {
+                window.location.href = "/team";
+              });
+          </script>
+          <% } %>
+
+          <!-- Nút đóng modal -->
+          <form method="POST" class="form-content" action="/team/create/store">
+            <!-- Hiển thị thông báo lỗi nếu có -->
+            <% if (typeof error !== "undefined" && error) { %>
+            <div class="alert-error"><%= error %></div>
+            <% } %>
+
+            <label class="required" for="teamName">Tên team:</label>
+            <input
+              type="text"
+              name="teamName"
+              id="teamName"
+              placeholder="Nhập tên team"
+              value="<%= typeof values !== 'undefined' ? values.teamName : '' %>"
+              required
+            />
+
+            <label for="regionName">Khu vực</label>
+            <select name="regionName" id="regionName">
+              <option value="" disabled selected>---Chọn khu vực---</option>
+
+              <% regions.forEach(region => { %>
+              <option value="<%= region.regionName %>">
+                <%= region.regionName %>
+              </option>
+              <% }) %>
+            </select>
+            <div id="sponsorsContainer">
+              <label for="sponsor1">Nhà tài trợ:</label>
+              <input type="text" id="sponsor1" name="sponsors" required />
+            </div>
+            <button type="button" id="addSponsorBtn">Thêm nhà tài trợ</button>
+
+            <div class="button-group">
+              <button type="submit" class="add-btn">Thêm</button>
+              <button
+                type="button"
+                class="close-btn-modal"
+                onclick="closeModal('team')"
+              >
+                Đóng
+              </button>
+            </div>
+
+            <div
+              id="error-message"
+              style="display: none; color: red; font-weight: bold"
+            ></div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let sponsorCount = 1;
+      document.getElementById("addSponsorBtn").onclick = function () {
+        sponsorCount++;
+        const newSponsor = document.createElement("div");
+        newSponsor.innerHTML = `
+          <div class="sponsor-entry" id="sponsor-entry${sponsorCount}">
+            <label for="sponsor${sponsorCount}">Nhà tài trợ:</label>
+            <input class="AddSponspor" type="text" id="sponsor${sponsorCount}" name="sponsors" required>
+            <button type="button" class="remove-sponsor-btn" onclick="removeSponsor(${sponsorCount})">x</button>
+          </div>`;
+        document.getElementById("sponsorsContainer").appendChild(newSponsor);
+      };
+
+      function removeSponsor(id) {
+        const sponsorEntry = document.getElementById(`sponsor-entry${id}`);
+        sponsorEntry.remove();
+      }
+    </script>
+  </body>
+</html>

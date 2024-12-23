@@ -95,3 +95,168 @@ th {
   background-color: #444; /* Màu nền khi nhấn */
   transform: scale(1); /* Trở lại kích thước ban đầu khi nhấn */
 }
+
+.list-player-free {
+  display: none;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 80%;
+  max-width: 800px;
+}
+
+.select-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+.close-btn {
+  margin-top: 20px;
+  background-color: #ff4d4d;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-left: 300px;
+}
+
+/* Định dạng chung cho modal */
+#contractModal {
+  display: none; /* Ẩn modal ban đầu */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5); /* Màu nền trong suốt */
+}
+
+/* Nội dung chính của modal */
+.modalContract-content {
+  background-color: #fff;
+  margin: 10% auto; /* Căn giữa dọc */
+  padding: 20px;
+  border-radius: 8px;
+  width: 40%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Hiệu ứng hiển thị modal */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Tiêu đề */
+.modalContract-content h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Nút đóng modal */
+.close-contract {
+  color: #aaa;
+  font-size: 20px;
+  font-weight: bold;
+  float: right;
+  cursor: pointer;
+}
+
+.close-contract:hover,
+.close-contract:focus {
+  color: #ff0000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Form hợp đồng */
+#contractForm label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+#contractForm input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Nhóm nút */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-group button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.button-group .add-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.button-group .add-btn:hover {
+  background-color: #45a049;
+}
+
+.button-group .close-contract {
+  background-color: #f44336;
+  color: white;
+}
+
+.button-group .close-contract:hover {
+  background-color: #d32f2f;
+}
+
+/* Modal Styles */
+.modalContract {
+  display: none; /* Ẩn modal ban đầu */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4); /* Màu nền mờ */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContract-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+  border-radius: 10px;
+}

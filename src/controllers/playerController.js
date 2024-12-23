@@ -9,7 +9,6 @@ const getAllPlayerInfo = async (req, res) => {
     const statusFilter = req.query.status || "all";
     const searchQuery = req.query.q || "";
 
-    console.log(positionFilter, statusFilter);
     // Gọi service để lấy dữ liệu người chơi theo query tìm kiếm
     const [players, players_history] = await Promise.all([
       playerService.getAllPlayerByQuery(
@@ -98,33 +97,6 @@ const addPlayer = async (req, res) => {
     res.render(`pages/createPlayer`, {
       values: req.body,
       error: error.message,
-    });
-  }
-};
-
-const storeBook = async (req, res) => {
-  const book = req.body;
-
-  // Kiểm tra các trường bắt buộc
-  if (!book.title || !book.book_type || !book.pub_id) {
-    return res.render("pages/create", {
-      error: "Thiếu thông tin cần thiết",
-      values: req.body,
-    });
-  }
-
-  try {
-    await bookService.createBook(book);
-    res.redirect("/manageBooks/create?success=true"); // Chuyển hướng nếu thêm thành công
-  } catch (err) {
-    console.error("Lỗi khi thêm sách:", err);
-    let errorMsg = "Lỗi khi thêm sách vào cơ sở dữ liệu";
-    if (err.code === "ER_DUP_ENTRY") {
-      errorMsg = "Book_ID đã tồn tại.";
-    }
-    return res.render("pages/create", {
-      error: errorMsg,
-      values: req.body,
     });
   }
 };

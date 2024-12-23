@@ -103,9 +103,19 @@ const addPlayer = async ({
   }
 };
 
+const getPlayersFree = async () => {
+  try {
+    const result = await db.execute("CALL GetFreePlayers()");
+    return result[0];
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   getAllPlayerInfo,
   getPlayerHistory,
   getAllPlayerByQuery,
   addPlayer,
+  getPlayersFree,
 };
