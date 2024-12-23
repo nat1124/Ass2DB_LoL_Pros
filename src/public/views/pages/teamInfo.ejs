@@ -76,7 +76,7 @@
                 <button class="editButton <%= isExpired ? 'expired' : '' %>">
                   <%= isExpired ? 'Hết hợp đồng' : 'Chỉnh sửa' %>
                 </button>
-                <% if (!isExpired) { %> <button class="cancelContractBtn">Hủy hợp đồng</button> <% } %>
+                <% if (!isExpired) { %> <a href="/team/cancel-contract/<%= player.playerId %>/<%= player.teamId %>" class="cancelContractBtn">Hủy hợp đồng</a> <% } %>
               </td>
              
             </tr>

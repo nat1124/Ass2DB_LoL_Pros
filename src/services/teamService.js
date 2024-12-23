@@ -91,6 +91,14 @@ const addPlayerToTeam = async ({ teamId, playerId, startDate, endDate }) => {
   }
 };
 
+const cancelContract = async (playerId, teamId) => {
+  try {
+    await db.execute('UPDATE player_team_history SET endDate = current_date() WHERE playerId = ? AND teamId = ?', [playerId, teamId])
+  } catch (error) {
+    throw new Error("Lỗi khi huỷ hợp đồng.");
+  }
+}
+
 module.exports = {
   getAllTeamInfo,
   getAllTeamSponsors,
@@ -99,4 +107,5 @@ module.exports = {
   getAllTrophy,
   addTeam,
   addPlayerToTeam,
+  cancelContract,
 };
